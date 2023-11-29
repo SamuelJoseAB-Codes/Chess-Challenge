@@ -8,10 +8,14 @@ class JogoXadrez:
 
     def fazer_movimento_aleatorio(self):
         movimentos_legais = list(self.tabuleiro.legal_moves)
-        if movimentos_legais:
+        movimentos_captura = [mov for mov in movimentos_legais if self.tabuleiro.is_capture(mov)]
+        if movimentos_captura:
+            movimento_aleatorio = random.choice(movimentos_captura)
+        else:
             movimento_aleatorio = random.choice(movimentos_legais)
-            self.tabuleiro.push(movimento_aleatorio)
-            return movimento_aleatorio
+
+        self.tabuleiro.push(movimento_aleatorio)
+        return movimento_aleatorio
 
     def validar_movimento(self, movimento):
         # Verifica se o movimento é legal
